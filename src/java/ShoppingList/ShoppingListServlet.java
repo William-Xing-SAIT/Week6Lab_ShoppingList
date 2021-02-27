@@ -48,7 +48,6 @@ public class ShoppingListServlet extends HttpServlet {
                 ArrayList<String> items = new ArrayList<>();
                 items.add(item);
                 session.setAttribute("items", items);
-                //session.setAttribute("number", items.size());
                 getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
             }
 
@@ -57,7 +56,6 @@ public class ShoppingListServlet extends HttpServlet {
                 ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
                 items.add(item);
                 session.setAttribute("items", items);
-                //session.setAttribute("number", items.size());
                 getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
             }
         }
@@ -66,15 +64,15 @@ public class ShoppingListServlet extends HttpServlet {
             String deleted = (String) request.getParameter("radiobutton");
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
             for (String item : items) {
-                if (item.equals(deleted)) {
+                if (deleted.equals(item)) {
                     items.remove(item);
                 }
                 session.setAttribute("items", items);
+
                 getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
             }
-            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+
         }
 
     }
-
 }
