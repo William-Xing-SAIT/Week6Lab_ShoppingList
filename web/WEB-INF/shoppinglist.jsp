@@ -15,12 +15,12 @@
         <h1>Shopping List</h1>
         <p>Hello, ${username} <a href="ShoppingList?action=logout">Logout</a></p>
         <h3>List</h3>
-        
+
         <form action = "ShoppingList?action=add" method = "post">
             Add item: <input type="text" name="item">
             <input type="submit" value="Add">
         </form>
-        
+
         <form action="ShoppingList?action=delete" method="post">
             <c:forEach var="item" items="${items}">
                 <input type="radio" name="radiobutton" value="${item}"/>
@@ -31,5 +31,6 @@
             </c:if>
         </form>
         ${deleted}
+        ${deleteda}
     </body>
 </html>

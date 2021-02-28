@@ -3,6 +3,7 @@ package ShoppingList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,14 +44,6 @@ public class ShoppingListServlet extends HttpServlet {
 
         if (action.equals("add")) {
 
-            if (session.getAttribute("items") == null) {
-                String item = request.getParameter("item");
-                ArrayList<String> items = new ArrayList<>();
-                items.add(item);
-                session.setAttribute("items", items);
-                getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
-            }
-
             if (session.getAttribute("items") != null) {
                 String item = request.getParameter("item");
                 ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
@@ -58,21 +51,31 @@ public class ShoppingListServlet extends HttpServlet {
                 session.setAttribute("items", items);
                 getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
             }
+
+            if (session.getAttribute("items") == null) {
+                String item = request.getParameter("item");
+                ArrayList<String> items = new ArrayList<>();
+                items = new ArrayList<>();
+                items.add(item);
+                session.setAttribute("items", items);
+                getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+
+            }
+
         }
 
         if (action.equals("delete")) {
             String deleted = (String) request.getParameter("radiobutton");
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-            for (String item : items) {
-                if (deleted.equals(item)) {
-                    items.remove(item);
+            for (int i = (items.size() - 1); i >= 0; i--) {
+                if (items.get(i).equals(deleted)) {
+                    items.remove(i);
                 }
-                session.setAttribute("items", items);
-
-                getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
             }
-
+            session.setAttribute("items", items);
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
         }
 
     }
+
 }
